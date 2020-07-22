@@ -1,0 +1,9 @@
+#!/bin/bash
+
+AUDIOIN=plughw:1,0
+AUDOOUT=${AUDIOIN}
+
+#CAT=
+#DEVICE=/dev/ttyUSB0
+arecord -l
+piardopc 8515 plughw:1,0 plughw:1,0 #--cat ${DEVICE} -k TX1; -u TX0; 
