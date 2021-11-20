@@ -1,5 +1,7 @@
 FROM raspbian/stretch
 
+LABEL maintainer="KD2QAR@gmail.com"
+
 RUN apt-get update && \
     apt-get -y install libasound2 alsa-utils pulseaudio && \
     apt-get -y autoremove && \

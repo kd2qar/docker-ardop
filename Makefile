@@ -2,10 +2,8 @@ NAME = ardop
 TAG  = ardop/madhut
 
 DEVICE=/dev/ttyUSB0
-#SETTINGS=-m 135 -r ${DEVICE} -s 4800 -d NONE 
 
-#PORT=-p 4532:4532
-PORT=-p 8515:8515
+PORT=-p 8515:8515 -p 8516:8516
 
 #DEVICE="plughw:1,0"
 #DEVICE=/dev/snd
@@ -28,6 +26,10 @@ test:
 	docker run -it --rm --name testrun ${TAG}	
 build:
 	docker build  --rm --tag=$(TAG) . 
+
+remove:
+	docker stop ${NAME} || true
+	docker rm ${NAME} || true
 
 #rigctl:
 #	docker run -it --rm ${DEV} --name rigctl --entrypoint rigctl ${TAG} ${SETTINGS}
