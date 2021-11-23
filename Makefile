@@ -21,21 +21,17 @@ all:: build
 
 run:
 	#docker run -d --rm --restart=always ${DEV} ${PORT} ${VOL} --name ${NAME} ${TAG} 
-	docker run -d --rm -v /dev/snd:/dev/snd  ${PRIV}  ${DEV} ${PORT} ${VOL} --name ${NAME} ${TAG}
+	docker run -d --restart=always -v /dev/snd:/dev/snd  ${PRIV}  ${DEV} ${PORT} ${VOL} --name ${NAME} ${TAG}
+
 test: 
-	docker run -it --rm --name testrun ${TAG}	
+	docker run -it --rm --name testrun ${TAG}
+
 build:
 	docker build  --rm --tag=$(TAG) . 
 
 remove:
 	docker stop ${NAME} || true
 	docker rm ${NAME} || true
-
-#rigctl:
-#	docker run -it --rm ${DEV} --name rigctl --entrypoint rigctl ${TAG} ${SETTINGS}
-
-#rigctld:
-#	docker run -it --rm ${DEV} --name rigctld --entrypoint rigctld ${TAG} ${SETTINGS}
 
 shell:
 	docker run -it --rm #{DEV} --net host  --entrypoint /bin/bash ${TAG}
