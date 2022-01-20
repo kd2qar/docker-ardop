@@ -21,13 +21,13 @@ all:: build
 
 run:
 	#docker run -d --rm --restart=always ${DEV} ${PORT} ${VOL} --name ${NAME} ${TAG} 
-	docker run -d --restart=always -v /dev/snd:/dev/snd  ${PRIV}  ${DEV} ${PORT} ${VOL} --name ${NAME} ${TAG}
+	docker run -d --restart=unless-stopped -v /dev/snd:/dev/snd  ${PRIV}  ${DEV} ${PORT} ${VOL} --name ${NAME} ${TAG}
 
 test: 
 	docker run -it --rm --name testrun ${TAG}
 
 build:
-	docker build  --rm --tag=$(TAG) . 
+	docker build --pull --force-rm --tag=$(TAG) . 
 
 remove:
 	docker stop ${NAME} || true
