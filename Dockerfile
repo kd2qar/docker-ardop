@@ -1,4 +1,5 @@
-FROM raspbian/stretch
+#FROM raspbian/stretch
+FROM debian:buster-slim
 
 LABEL maintainer="KD2QAR@gmail.com"
 
