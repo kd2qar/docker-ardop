@@ -1,5 +1,5 @@
 NAME = ardop
-TAG  = ardop/madhut
+TAG  = kd2qar/ardop
 
 DEVICE=/dev/ttyUSB0
 
