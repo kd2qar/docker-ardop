@@ -15,11 +15,16 @@ RUN arecord -l
 
 WORKDIR /srv/ardop
 
-COPY * /srv/ardop/
+#COPY * /srv/ardop/
+#RUN ls -lh /srv/ardop/
 
-COPY * /usr/local/bin/
+COPY piardopc /usr/local/bin/
+COPY ardoprun /usr/local/bin/
+COPY tools    /usr/local/bin/
 
+#RUN ls -alh /usr/local/bin/
 
+RUN chmod +x /usr/local/bin/ardoprun /usr/local/bin/piardopc /usr/local/bin/tools
 ENTRYPOINT ["ardoprun"]
 
 

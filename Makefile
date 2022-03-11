@@ -13,7 +13,7 @@ DEV=
 
 DEVICE=--device=/dev/ttyUSB0
 
-VOL=
+VOL=-v /dev/snd:/dev/snd
 
 PRIV="--privileged"
 
@@ -21,7 +21,7 @@ all:: build
 
 run:
 	#docker run -d --rm --restart=always ${DEV} ${PORT} ${VOL} --name ${NAME} ${TAG} 
-	docker run -d --restart=unless-stopped -v /dev/snd:/dev/snd  ${PRIV}  ${DEV} ${PORT} ${VOL} --name ${NAME} ${TAG}
+	docker run -d --restart=unless-stopped ${PRIV}  ${DEV} ${PORT} ${VOL} --name ${NAME} ${TAG}
 
 test: 
 	docker run -it --rm --name testrun ${TAG}
@@ -34,4 +34,4 @@ remove:
 	docker rm ${NAME} || true
 
 shell:
-	docker run -it --rm #{DEV} --net host  --entrypoint /bin/bash ${TAG}
+	docker run -it --rm ${DEV} ${VOL} --net host  --entrypoint /bin/bash ${TAG}
