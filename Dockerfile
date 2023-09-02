@@ -1,6 +1,6 @@
 #FROM raspbian/stretch
 FROM debian:buster-slim
-
+ENV DEBIAN_FRONTEND="noninteractive" TZ="America/New_York"
 LABEL maintainer="KD2QAR@gmail.com"
 
 RUN apt-get update && \
