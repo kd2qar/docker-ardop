@@ -1,0 +1,49 @@
+
+x-anchors:
+  test: this
+    - that
+    - tag
+    - "XNAME=ardop"
+    - TAG=kd2qar/ardop
+  #  - PORT=-p 8515:8515 -p 8516:8516
+  #  - DEV=--device ${DEVICE}:${DEVICE}
+  #  - DEV=
+  #  - DEVICE=--device=/dev/ttyUSB0
+  #  - VOL=-v /dev/snd:/dev/snd
+  #  - PRIV="--privileged"
+  #  - all:: build
+  #run:
+  #    - docker run -d --restart=unless-stopped ${PRIV}  ${DEV} ${PORT} ${VOL} --name ${NAME} ${TAG}
+  container: &container ardop
+  image: &image kd2qar/ardop-pat
+  device: &device /dev/ttyUSB0
+  audodev: &audiodev plughw:CARD=CODEC,DEV=0
+
+services:
+  ardop:
+    container_name: *container
+    image: *image
+    environment:
+      TZ: Americas/New_York
+      DEVICE: *device
+      AUDIODEV: &audiodev
+    build:
+      context: .
+      tags:
+        - *image
+    hostname: *container
+    network_mode: bridge
+    ports:
+      - 8515:8515
+      - 8516:8516
+#    devices:
+#      - source: *device
+#        target: *device
+    volumes:
+      - /dev/snd:/dev/snd
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: 3

@@ -13,9 +13,10 @@ DEV=
 
 DEVICE=--device=/dev/ttyUSB0
 
-VOL=-v /dev/snd:/dev/snd
+VOL=-v /dev/snd:/dev/snd -v /dev/pts:/dev/pts -v /srv/ardop:/srv/ardop
 
 PRIV="--privileged"
+ENV=--env AUDIODEV=plughw:1,0
 
 all:: build
 
@@ -27,11 +28,11 @@ test:
 	docker run -it --rm --name testrun ${TAG}
 
 build:
-	docker build --pull --force-rm --tag=$(TAG) . 
+	docker build --force-rm --tag=$(TAG) . 
 
 remove:
 	docker stop ${NAME} || true
 	docker rm ${NAME} || true
 
 shell:
-	docker run -it --rm ${DEV} ${VOL} --net host  --entrypoint /bin/bash ${TAG}
+	docker run -it --rm ${PRIV} ${ENV} ${DEVICE} ${VOL} --net host  --entrypoint /bin/bash ${TAG}

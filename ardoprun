@@ -4,7 +4,10 @@ echo "START ardoprun ${0}"
 AUDIOIN=plughw:1,0
 AUDIOIN=plughw:2,0
 AUDOOUT=${AUDIOIN}
-
+if [ -v AUDIODEV ]; then
+  AUDIOIN=${AUDIODEV}
+  AUDOOUT=${AUDIODEV}
+fi
 #CAT=
 #DEVICE=/dev/ttyUSB0
 
